@@ -1,13 +1,8 @@
 package xnuc.syncer;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.locks.LockSupport;
-
 public class Mutex {
 
-    private AtomicReference<Thread> state = new AtomicReference<>();
+    private java.util.concurrent.atomic.AtomicReference<Thread> state = new java.util.concurrent.atomic.AtomicReference<>();
     private java.util.Queue<Thread> syncer = new java.util.LinkedList<>();
 
     private synchronized boolean synceradd() {
@@ -19,7 +14,7 @@ public class Mutex {
             return;
         }
         synceradd();
-        LockSupport.park();
+        java.util.concurrent.locks.LockSupport.park();
         lock();
     }
 
@@ -29,6 +24,6 @@ public class Mutex {
         if (next == null) {
             return;
         }
-        LockSupport.unpark(next);
+        java.util.concurrent.locks.LockSupport.unpark(next);
     }
 }
